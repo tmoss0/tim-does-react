@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <Layout card={Card} />
+      <Layout card={Card} name="Tim" />
     </>
   )
 }
