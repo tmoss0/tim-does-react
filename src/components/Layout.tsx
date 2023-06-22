@@ -2,13 +2,11 @@ import '../App.css'
 
 type LayoutProps = {
   card: React.ComponentType;
-  name: string;
 };
 
-const Layout: React.FC<LayoutProps> = ({ card: Card, name }) => {
+const Layout = ({ card: Card }: LayoutProps) => {
   return (
     <div>
-      <h2>Hello {name}</h2>
       <Card />
     </div>
   );
