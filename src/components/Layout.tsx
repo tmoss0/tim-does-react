@@ -1,13 +1,10 @@
-import '../App.css'
+import '../App.css';
+import Search from './Search';
 
-type LayoutProps = {
-  card: React.ComponentType;
-};
-
-const Layout = ({ card: Card }: LayoutProps) => {
+const Layout = () => {
   return (
     <div>
-      <Card />
+      <Search />
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import './App.css'
-import Card from './components/Card'
+import GameCard from './components/GameCard'
 import Layout from './components/Layout'
 
 function App() {
 
   return (
     <>
-      <Layout card={Card} />
+      <Layout />
     </>
   )
 }
