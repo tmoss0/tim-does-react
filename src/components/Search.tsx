@@ -25,11 +25,14 @@ const Search: React.FC = () => {
         method: 'POST'
       });
 
+      const authRes = await authorization.json();
+      const accessToken = authRes.access_token;
+
       const response = await fetch(urlLookup, {
         method: 'POST',
         headers: {
           'Client-ID': clientID,
-          'Authorization': `Bearer ${clientSecret}`,
+          'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
@@ -41,8 +44,6 @@ const Search: React.FC = () => {
         }),
       });
 
-      const authRes = await authorization.json()
-      console.log(authRes);
       const data = await response.json();
       console.log("Response: " + JSON.stringify(data));
       setSearchResults(data);
