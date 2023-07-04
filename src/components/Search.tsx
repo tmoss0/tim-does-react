@@ -16,36 +16,26 @@ const Search: React.FC = () => {
     try {
       setLoading(true);
 
-      const urlAuthorization = 'https://id.twitch.tv/oauth2/token';
-      const urlLookup = 'https://api.igdb.com/v4/games';
-      const clientID = 'kk71m14tusl34ammlusj7soam1yju2';
-      const clientSecret = 'xfocg1v5jrdh8l06drgu91bc7nvg3h';
-
-      const authorization = await fetch(`${urlAuthorization}?client_id=${clientID}&client_secret=${clientSecret}&grant_type=client_credentials`, {
-        method: 'POST'
-      });
-
-      const authRes = await authorization.json();
-      const accessToken = authRes.access_token;
-
+      const urlLookup = 'https://fzxugulsv8.execute-api.us-west-2.amazonaws.com/production/v4/games';
+      const awsAPIKey = process.env.REACT_APP_AWS_API_KEY;
+      const localHost = 'http://localhost:5173/';
       const response = await fetch(urlLookup, {
         method: 'POST',
         headers: {
-          'Client-ID': clientID,
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Credentials': 'true',
+          'Accept': '*/*',
+          'Access-Control-Allow-Origin': localHost,
+          'Connection': 'Keep-Alive',
+          'Content-Type': 'text/plain',
+          'x-api-key': awsAPIKey
         },
         body: JSON.stringify({
           search: searchTerm,
-          fields: 'id,name,platforms,url'
+          fields: 'screenshots'
         }),
       });
 
       const data = await response.json();
-      console.log("Response: " + JSON.stringify(data));
+      console.log('Response: ' + JSON.stringify(data));
       setSearchResults(data);
     }
     catch (error) {
@@ -57,7 +47,7 @@ const Search: React.FC = () => {
 
   return (
     <div>
-      <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <input type='text' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       <button onClick={handleSearch} disabled={loading}>Search</button>
 
       {loading && <p>Loading...</p>}
